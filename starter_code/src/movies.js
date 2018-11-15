@@ -16,25 +16,33 @@ const turnHoursToMinutes = (moviesArray) => {
 			duration = parseInt(movie.duration.replace('min', ''));
 		};
 
-		console.log(movie);
-		console.log(duration);
-
 		return Object.assign({}, movie, { duration: duration });
 	});
 }
 
+
+// Get the average of all rates with 2 decimals 
 const ratesAverage = (moviesArray) => {
 	var total = moviesArray.reduce(function(acc, item){
-		return acc + parseFloat(item.rate);
+		return (item.rate != '') ? acc + parseFloat(item.rate) : acc;
 	}, 0);
 
 	return parseFloat(total / moviesArray.length);
 }
 
-// Get the average of all rates with 2 decimals 
-
 
 // Get the average of Drama Movies
+const dramaMoviesRate = (moviesArray) => {
+	var dramaMoviesArray = moviesArray.filter(function(item){
+		return item.genre.indexOf('Drama') >= 0;	
+	});
+
+	var total = dramaMoviesArray.reduce(function(acc, item){
+		return (item.rate !== '') ? acc + parseFloat(item.rate) : acc;
+	}, 0);
+
+	return (dramaMoviesArray.length <= 0) ? undefined : parseFloat((total / dramaMoviesArray.length).toFixed(2));
+}
 
 
 // Order by time duration, in growing order
