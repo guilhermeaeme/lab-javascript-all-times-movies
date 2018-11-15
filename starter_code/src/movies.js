@@ -23,6 +23,14 @@ const turnHoursToMinutes = (moviesArray) => {
 	});
 }
 
+const ratesAverage = (moviesArray) => {
+	var total = moviesArray.reduce(function(acc, item){
+		return acc + parseFloat(item.rate);
+	}, 0);
+
+	return parseFloat(total / moviesArray.length);
+}
+
 // Get the average of all rates with 2 decimals 
 
 
