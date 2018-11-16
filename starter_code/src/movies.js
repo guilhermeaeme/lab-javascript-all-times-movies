@@ -68,6 +68,7 @@ const howManyMovies = (moviesArray) => {
 	return `Steven Spielberg directed ${dramaMoviesArray.length} drama movies!`;
 }
 
+
 // Order by title and print the first 20 titles
 const orderAlphabetically = (moviesArray) => {
 	var titledMovies = moviesArray.map(function(movie){
@@ -80,9 +81,46 @@ const orderAlphabetically = (moviesArray) => {
 
 	sortedMovies.splice(20, sortedMovies.length);
 
-	console.log(sortedMovies);
-
 	return sortedMovies;
 }
 
+
 // Best yearly rate average
+const bestYearAvg = (moviesArray) => {
+	if(moviesArray.length == 0) return undefined;
+
+	let years = [];
+
+	moviesArray.forEach(function(item) {
+		if(years.indexOf(item.year) < 0){
+			years.push(item.year);
+		}
+	});
+
+	let yearsRate = years.map(function(year){
+		let yearMovies = moviesArray.filter(function(movie){
+			return movie.year == year;
+		});
+
+		let yearTotal = yearMovies.reduce(function(acc, item){
+			return acc + parseFloat(item.rate);
+		}, 0);
+
+		let yearAvg = yearTotal / yearMovies.length;
+
+		return {
+			year: year, rate: yearAvg
+		};
+	});
+
+	yearsRate.sort(function(a, b){
+		if(a.rate == b.rate) {
+			return a.year - b.year;
+		}
+
+		return b.rate - a.rate;
+	});
+
+	return `The best year was ${yearsRate[0].year} with an average rate of ${yearsRate[0].rate}`;
+}
+
