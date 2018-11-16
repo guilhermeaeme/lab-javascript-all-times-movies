@@ -69,6 +69,20 @@ const howManyMovies = (moviesArray) => {
 }
 
 // Order by title and print the first 20 titles
+const orderAlphabetically = (moviesArray) => {
+	var titledMovies = moviesArray.map(function(movie){
+		return movie.title;
+	});
 
+	var sortedMovies = titledMovies.sort(function(a, b) {
+		return a.localeCompare(b);
+	});
+
+	sortedMovies.splice(20, sortedMovies.length);
+
+	console.log(sortedMovies);
+
+	return sortedMovies;
+}
 
 // Best yearly rate average
